@@ -1,7 +1,7 @@
-// @import url('../../../shared/scss/defaultColors.scss');
+@import '../../../shared/scss/defaultColors.scss';
 
 .nav-active {
-    background-color: lightblue;
+    background-color: $active;
 }
 
 .nav-element {
@@ -9,5 +9,5 @@
 }
 
 .nav-element:hover {
-    background-color: gainsboro;
+    background-color: $hover;
 }
