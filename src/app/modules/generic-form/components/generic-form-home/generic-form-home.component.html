@@ -1,13 +1,17 @@
-<form [formGroup]="genericForm">
+<form [formGroup]="genericForm" class="form-container">
     <ng-container *ngFor="let obj of formObjects">
         <ng-container [ngSwitch]="obj.objectType">
 
             <ng-container *ngSwitchCase="'input'">
-                <mat-form-field class="{{obj.defaultClass}} ?? ''" appearance="fill">
+                <mat-form-field 
+                class="{{obj.defaultClass}}" 
+                appearance="fill">
                     <mat-label *ngIf="obj.displayName">
                         {{obj.displayName}}
                     </mat-label>
-                    <input matInput [formControlName]="obj.controlName">
+                    <input 
+                    matInput 
+                    [formControlName]="obj.controlName">
                     <ng-container *ngIf="obj.validators">
                         <!-- todo: implement form msgs-->
                     </ng-container>
@@ -15,8 +19,9 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="'select'">
-                <mat-form-field class="{{obj.defaultClass}} ?? ''" appearance="fill">
-                    <mat-select [formControlName]="obj.controlName">
+                <mat-form-field class="{{obj.defaultClass}}" appearance="fill">
+                    <mat-select 
+                    [formControlName]="obj.controlName">
                         <mat-option 
                         *ngFor="let option of obj.specialValues"
                         [value]="option">
@@ -31,10 +36,29 @@
                 </mat-form-field>
             </ng-container>
 
+            <ng-container *ngSwitchCase="'checkbox'">
+                <mat-checkbox 
+                [formControlName]="obj.controlName"
+                class="{{obj.defaultClass}}"
+                [checked]="boolConvert(obj.defaultValue)"
+                >
+                {{obj.displayName}}
+                </mat-checkbox>
+                 <!--  -->
+                 
+                <ng-container *ngIf="obj.validators">
+                    <!-- todo: implement form msgs-->
+                </ng-container>
+
+                    
+            </ng-container>
 
         </ng-container>
 
 
     </ng-container>
-
+    <button 
+    type="submit"
+    class="form-item"
+    [disabled]="genericForm.invalid">bla</button>
 </form>
