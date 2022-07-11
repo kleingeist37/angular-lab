@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { GenericFormRoutingModule } from './generic-form-routing.module';
 import { GenericFormHomeComponent } from './components/generic-form-home/generic-form-home.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/shared/modules/material/material.module';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { GenericFormHomeComponent } from './components/generic-form-home/generic
   ],
   imports: [
     CommonModule,
-    GenericFormRoutingModule
+    GenericFormRoutingModule,
+    ReactiveFormsModule,
+
+    MaterialModule
   ]
 })
 export class GenericFormModule { }

@@ -1,1 +1,40 @@
-<p>generic-form-home works!</p>
+<form [formGroup]="genericForm">
+    <ng-container *ngFor="let obj of formObjects">
+        <ng-container [ngSwitch]="obj.objectType">
+
+            <ng-container *ngSwitchCase="'input'">
+                <mat-form-field class="{{obj.defaultClass}} ?? ''" appearance="fill">
+                    <mat-label *ngIf="obj.displayName">
+                        {{obj.displayName}}
+                    </mat-label>
+                    <input matInput [formControlName]="obj.controlName">
+                    <ng-container *ngIf="obj.validators">
+                        <!-- todo: implement form msgs-->
+                    </ng-container>
+                </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'select'">
+                <mat-form-field class="{{obj.defaultClass}} ?? ''" appearance="fill">
+                    <mat-select [formControlName]="obj.controlName">
+                        <mat-option 
+                        *ngFor="let option of obj.specialValues"
+                        [value]="option">
+                        {{option}}
+                    </mat-option>
+                    </mat-select>
+                    <mat-label *ngIf="obj.displayName">{{obj.displayName}}</mat-label>
+
+                    <ng-container *ngIf="obj.validators">
+                        <!-- todo: implement form msgs-->
+                    </ng-container>
+                </mat-form-field>
+            </ng-container>
+
+
+        </ng-container>
+
+
+    </ng-container>
+
+</form>
