@@ -1,1 +1,13 @@
-<p>navbar works!</p>
+<mat-toolbar>
+    <button 
+    mat-raised-button 
+    *ngFor="let el of navElements"
+    class="{{el.defaultClass}} ?? ''"
+    [routerLink]="el.route"
+    [routerLinkActive]="el.activeClass ?? ''"
+    [routerLinkActiveOptions]="{exact: true}">
+    <mat-icon *ngIf="el.icon">{{el.icon}}</mat-icon>
+    {{el.displayName}}</button>
+</mat-toolbar>
+
+

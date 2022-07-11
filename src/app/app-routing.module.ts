@@ -5,6 +5,7 @@ import { HomeComponent } from './core/components/home/home.component';
 
 const routes: Routes = [
   {path: AppRoutes.Home, component: HomeComponent, pathMatch: 'full'},
+  {path: AppRoutes.GenericForm, loadChildren: () => import('./modules/generic-form/generic-form.module').then(m => m.GenericFormModule)},
 
 ];
 

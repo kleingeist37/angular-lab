@@ -1,0 +1,13 @@
+// @import url('../../../shared/scss/defaultColors.scss');
+
+.nav-active {
+    background-color: lightblue;
+}
+
+.nav-element {
+    margin: 0 0.5rem;
+}
+
+.nav-element:hover {
+    background-color: gainsboro;
+}
