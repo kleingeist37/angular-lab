@@ -4,22 +4,24 @@ import { FormObject } from "../interfaces/form-object.interface";
 
 export class GenericForm {
 
-
     public static generateForm(formObjects: FormObject[]) : FormGroup {
         const genericForm = new FormGroup({});
-        //todo: create recursive version for generic groups
-        for(let i = 0; i < formObjects.length; i++){
-            let currentObj = formObjects[i];
-            
 
+      
+        for(let i = 0; i < formObjects.length; i++){
+            const currentObj = formObjects[i];            
             switch(currentObj.objectType){
             
-            case FormObjectType.Group:
-                //Call Function again -> recursive magic
+            case FormObjectType.Group:                
+                if(currentObj.children !== undefined){
+                    const theChildren: FormObject[] = currentObj.children ?? []; //todo: ... find better solution.  
+                    const group = this.generateForm(theChildren);
+                    genericForm.setControl(currentObj.controlName, group);
+                }                
                 break;
 
             case FormObjectType.FormArray:
-                // ??? same as group? -> Recherche
+                // ??? same as group? -> research
                 break;
 
 
@@ -41,23 +43,4 @@ export class GenericForm {
 
         return genericForm;
     }
-    //schrott für den moment
-    // public static buildForm(formObjects : FormObject[]){
-    //     let myChildren: number = 0;
-    //     for(let i = 0; i < formObjects.length; i++){
-    //         if(i === 0 || formObjects[i].isChild){
-    //             let formGroup = new FormGroup({});
-    //             let children = [];
-    //             let j = 0;
-    //             while(formObjects[i].isChild){
-    //                 children.push(formObjects[i]);
-    //                 children[j].isChild = false;
-    //                 j++;
-    //                 i++;
-    //             }
-
-    //         }
-    //     }
-
-    // }
 }

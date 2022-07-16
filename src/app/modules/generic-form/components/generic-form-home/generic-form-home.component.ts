@@ -16,20 +16,42 @@ export class GenericFormHomeComponent implements OnInit {
 
   genericForm!: FormGroup;
 
+  //region #children of corn
+  childrenOfCorn : FormObject[] = [
+    {
+      objectType: FormObjectType.Input, 
+      controlName: 'theSpeaker',
+      displayName: 'The Speaker',
+      defaultClass: this.defaultClass,
+      defaultValue: 'Isaak',
+      validators: [Validators.required],
+    },
+    {
+      objectType: FormObjectType.Input, 
+      controlName: 'theOtherGuy',
+      displayName: 'The other Guy',
+      defaultClass: this.defaultClass,
+      defaultValue: 'Malachai',
+      validators: [Validators.required],
+    },
+    
+  ];
+  //#endregion
+  
   //TODO Create Delegates for CallBack Functions (Buttons, eventListener etc.)
   formObjects: FormObject[] = [
     {
       objectType: FormObjectType.Input, 
       controlName: 'firstName',
-      displayName: 'Vorname',
-      defaultValue: 'Mario',
+      displayName: 'First Name',
+      defaultValue: 'Snippy',
       defaultClass: this.defaultClass,
       validators: [Validators.required],
     },
     {
       objectType: FormObjectType.Select, 
       controlName: 'gender',
-      displayName: 'Geschlecht',
+      displayName: 'Gender',
       defaultClass: this.defaultClass,
       validators: [Validators.required],
       objectValues: [
@@ -40,13 +62,22 @@ export class GenericFormHomeComponent implements OnInit {
     },
     {
       objectType: FormObjectType.CheckBox, 
-      controlName: 'stinky',
-      displayName: 'Ich bestätige hiermit, dass ich nicht stinke',
+      controlName: 'confirm',
+      displayName: 'I confirm this confirmation',
       defaultClass: this.defaultClass,
       defaultValue: false,
       validators: [Validators.requiredTrue],
     },
+    {
+      objectType: FormObjectType.Group, 
+      controlName: 'cornfield',
+      displayName: 'The Cornfield',
+      defaultClass: this.defaultClass,
+      children: this.childrenOfCorn,
+    },
   ];
+
+
 
   constructor() { }
 
@@ -60,7 +91,7 @@ export class GenericFormHomeComponent implements OnInit {
 
   private initialzeForm(){
     this.genericForm = GenericForm.generateForm(this.formObjects); //new FormGroup({});
-   
+    // console.log(this.genericForm);
 
   }
 

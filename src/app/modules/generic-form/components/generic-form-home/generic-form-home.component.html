@@ -1,57 +1,111 @@
 <form [formGroup]="genericForm" class="form-container">
     <ng-container *ngFor="let obj of formObjects">
-        <ng-container [ngSwitch]="obj.objectType">
+        <ng-container [ngSwitch]="obj.objectType" #decider>
 
+            <!--SWITCH CASES-->
             <ng-container *ngSwitchCase="'input'">
+                <ng-container
+                *ngTemplateOutlet="input;context:{inputData:obj}">
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'select'">
+                <ng-container
+                *ngTemplateOutlet="select;context:{selectData:obj}">
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'checkbox'">
+                <ng-container
+                *ngTemplateOutlet="checkbox;context:{checkboxData:obj}">
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'group'">
+                <ng-container
+                *ngTemplateOutlet="group;context:{groupData:obj}">
+                </ng-container>
+            </ng-container>
+
+            <!--TEMPLATES-->
+            <ng-template #input let-inputData="inputData"> 
                 <mat-form-field 
-                class="{{obj.defaultClass}}" 
+                [ngClass]="inputData.defaultClass" 
                 appearance="fill">
-                    <mat-label *ngIf="obj.displayName">
-                        {{obj.displayName}}
+                    <mat-label *ngIf="inputData.displayName">
+                        {{inputData.displayName}}
                     </mat-label>
                     <input 
                     matInput 
-                    [formControlName]="obj.controlName">
-                    <ng-container *ngIf="obj.validators">
+                    [formControlName]="inputData.controlName"
+                    >
+                    <ng-container *ngIf="inputData.validators">
                         <!-- todo: implement form msgs-->
                     </ng-container>
                 </mat-form-field>
-            </ng-container>
+            </ng-template>
 
-            <ng-container *ngSwitchCase="'select'">
-                <mat-form-field class="{{obj.defaultClass}}" appearance="fill">
+            <ng-template #select let-selectData="selectData">
+                <mat-form-field [ngClass]="selectData.defaultClass" appearance="fill">
                     <mat-select 
-                    [formControlName]="obj.controlName">
+                    [formControlName]="selectData.controlName">
                         <mat-option 
-                        *ngFor="let option of obj.objectValues"
+                        *ngFor="let option of selectData.objectValues"
                         [value]="option">
                         {{option}}
                     </mat-option>
                     </mat-select>
-                    <mat-label *ngIf="obj.displayName">{{obj.displayName}}</mat-label>
+                    <mat-label *ngIf="selectData.displayName">{{selectData.displayName}}</mat-label>
 
-                    <ng-container *ngIf="obj.validators">
+                    <ng-container *ngIf="selectData.validators">
                         <!-- todo: implement form msgs-->
                     </ng-container>
                 </mat-form-field>
-            </ng-container>
+            </ng-template>
 
-            <ng-container *ngSwitchCase="'checkbox'">
+            <ng-template #checkbox let-checkboxData="checkboxData">
                 <mat-checkbox 
-                [formControlName]="obj.controlName"
-                class="{{obj.defaultClass}}"
-                [checked]="boolConvert(obj.defaultValue)"
+                [formControlName]="checkboxData.controlName"
+                [ngClass]="checkboxData.defaultClass"
+                [checked]="boolConvert(checkboxData.defaultValue)"
                 >
-                {{obj.displayName}}
+                {{checkboxData.displayName}}
                 </mat-checkbox>
                  <!--  -->
                  
-                <ng-container *ngIf="obj.validators">
+                <ng-container *ngIf="checkboxData.validators">
                     <!-- todo: implement form msgs-->
-                </ng-container>
+                </ng-container>                    
+            </ng-template>
 
-                    
-            </ng-container>
+            <ng-template #group let-groupData="groupData">
+                <div [formGroupName]="groupData.controlName">
+                    <ng-container *ngFor="let child of groupData.children">
+
+                        <ng-container [ngSwitch]="child.objectType">
+                            <ng-container *ngSwitchCase="'input'">
+                                <ng-container
+                                *ngTemplateOutlet="input;context:{inputData:child}">
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'select'">
+                                <ng-container
+                                *ngTemplateOutlet="select;context:{selectData:child}">
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'checkbox'">
+                                <ng-container
+                                *ngTemplateOutlet="checkbox;context:{checkboxData:child}">
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="'group'">
+                                <ng-container
+                                *ngTemplateOutlet="group;context:{groupData:child}">
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+
+                    </ng-container>
+                </div>
+            </ng-template>
+
 
         </ng-container>
 
