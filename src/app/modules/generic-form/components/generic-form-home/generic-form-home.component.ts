@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormObjectType } from '../../interfaces/form-object-type.enum';
 import { FormObject } from '../../interfaces/form-object.interface';
+import { GenericForm } from '../../static/generic-form.static';
 
 @Component({
   selector: 'lab-generic-form-home',
@@ -31,7 +32,7 @@ export class GenericFormHomeComponent implements OnInit {
       displayName: 'Geschlecht',
       defaultClass: this.defaultClass,
       validators: [Validators.required],
-      specialValues: [
+      objectValues: [
         'male',
         'female',
         'neutral'
@@ -45,7 +46,7 @@ export class GenericFormHomeComponent implements OnInit {
       defaultValue: false,
       validators: [Validators.requiredTrue],
     },
-  ]
+  ];
 
   constructor() { }
 
@@ -58,31 +59,8 @@ export class GenericFormHomeComponent implements OnInit {
   }
 
   private initialzeForm(){
-    this.genericForm = new FormGroup({});
-
-    //todo: create recursive version for generic groups
-    for(let i = 0; i < this.formObjects.length; i++){
-      let currentObj = this.formObjects[i];
-      
-
-      switch(currentObj.objectType){
-        
-        case FormObjectType.CheckBox:
-        case FormObjectType.Select:
-        case FormObjectType.Input:
-          this.genericForm.addControl(
-                            currentObj.controlName, 
-                            new FormControl(
-                                currentObj.defaultValue, 
-                                currentObj.validators
-                              )
-                            );
-          break;
-       
-         
-      
-        }
-    }
+    this.genericForm = GenericForm.generateForm(this.formObjects); //new FormGroup({});
+   
 
   }
 

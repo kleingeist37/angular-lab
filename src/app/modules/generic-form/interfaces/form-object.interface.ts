@@ -8,6 +8,6 @@ export interface FormObject {
     defaultClass?: string,
     defaultValue?: string | boolean | number,
     displayName?: string
-    specialValues?: any[],
+    objectValues?: any[],
     validators?: ValidatorFn[],
 }
