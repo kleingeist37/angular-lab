@@ -1,39 +1,50 @@
 import { FnParam } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormObjectType } from '../../interfaces/form-object-type.enum';
 import { FormObject } from '../../interfaces/form-object.interface';
 import { GenericForm } from '../../static/generic-form.static';
 
 @Component({
-  selector: 'lab-generic-form-home',
-  templateUrl: './generic-form-home.component.html',
-  styleUrls: ['./generic-form-home.component.scss']
+  selector: 'lab-generic-form-generator',
+  templateUrl: './generic-form-generator.component.html',
+  styleUrls: ['./generic-form-generator.component.scss']
 })
-export class GenericFormHomeComponent implements OnInit {
+export class GenericFormGeneratorComponent implements OnInit {
 
   private defaultClass: string = 'form-item'
 
   genericForm!: FormGroup;
 
-  //region #children of corn
-  childrenOfCorn : FormObject[] = [
+  @Input() formData: FormObject[] = [];
+  @Input() formChildren: FormObject[][] = [[]];
+
+
+  theChildren : FormObject[] = [
     {
       objectType: FormObjectType.Input, 
-      controlName: 'theSpeaker',
-      displayName: 'The Speaker',
+      controlName: 'theChild',
+      displayName: 'The Child',
       defaultClass: this.defaultClass,
-      defaultValue: 'Isaak',
+      defaultValue: 'Milhouse',
       validators: [Validators.required],
     },
     {
       objectType: FormObjectType.Input, 
-      controlName: 'theOtherGuy',
-      displayName: 'The other Guy',
+      controlName: 'theCoolerChild',
+      displayName: 'The cooler Child',
       defaultClass: this.defaultClass,
-      defaultValue: 'Malachai',
+      defaultValue: 'Thrillhouse',
       validators: [Validators.required],
     },
+    // {
+    //   objectType: FormObjectType.Group, 
+    //   controlName: 'kidsClub',
+    //   displayName: 'kidsClub',
+    //   defaultClass: this.defaultClass,
+    //   //children: this.kidsClub
+
+    // },
     
   ];
   //#endregion
@@ -45,6 +56,14 @@ export class GenericFormHomeComponent implements OnInit {
       controlName: 'firstName',
       displayName: 'First Name',
       defaultValue: 'Snippy',
+      defaultClass: this.defaultClass,
+      validators: [Validators.required],
+    },
+    {
+      objectType: FormObjectType.Input, 
+      controlName: 'lastName',
+      displayName: 'Last Name',
+      defaultValue: 'Snippington',
       defaultClass: this.defaultClass,
       validators: [Validators.required],
     },
@@ -70,29 +89,36 @@ export class GenericFormHomeComponent implements OnInit {
     },
     {
       objectType: FormObjectType.Group, 
-      controlName: 'cornfield',
-      displayName: 'The Cornfield',
+      controlName: 'childGroup',
+      displayName: 'The Kindergardeners',
       defaultClass: this.defaultClass,
-      children: this.childrenOfCorn,
+      children: this.theChildren,
     },
   ];
 
 
-
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initialzeForm();
   }
 
-  public boolConvert(input : any): boolean {
+  public boolConvert(input: any): boolean {
     return Boolean(input);
   }
 
   private initialzeForm(){
-    this.genericForm = GenericForm.generateForm(this.formObjects); //new FormGroup({});
-    // console.log(this.genericForm);
+    this.genericForm = GenericForm.generateForm(this.formObjects);
+    // this.genericForm = this.fb.group({
+    //   corn: this.fb.group({
+    //     theSpeaker: ['isaak', Validators.required],
+    //     theOtherGuy: ['Malachai'],
+    //   })
+    // }) 
+  }
 
+  public submit() : void {
+    console.log(this.genericForm);
   }
 
 }

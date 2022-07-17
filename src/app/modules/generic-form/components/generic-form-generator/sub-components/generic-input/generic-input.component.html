@@ -1,0 +1,21 @@
+<mat-form-field 
+    class="{{data.defaultClass}}" 
+    appearance="fill">
+    <mat-label 
+    *ngIf="data.displayName">
+    {{data.displayName}}
+    </mat-label>                
+    <input 
+    matInput 
+    [formControlName]="data.controlName"
+    >
+    <ng-container 
+    *ngIf="data.validators">
+    <!-- todo: create forms message component -->
+     </ng-container>
+</mat-form-field>
+
+
+
+
+

@@ -1,0 +1,43 @@
+<div [formGroupName]="data.controlName">               
+    <ng-container 
+        *ngFor="let child of data.children;">
+        <ng-container 
+            [ngSwitch]="child.objectType">
+            <ng-container 
+                *ngSwitchCase="'input'">   
+
+                <!-- works not -->                
+                <!-- <lab-generic-input [data]="child"></lab-generic-input>  -->
+
+                 <!-- works ?!-->
+                <mat-form-field 
+                    class="{{child.defaultClass}}" 
+                    appearance="fill">
+                        <mat-label *ngIf="child.displayName">
+                            {{child.displayName}}
+                        </mat-label>
+                        <input 
+                        matInput 
+                        [formControlName]="child.controlName"
+                        >
+                        <ng-container *ngIf="child.validators">
+                           
+                        </ng-container>
+                    </mat-form-field>
+            </ng-container>
+            <ng-container 
+            *ngSwitchCase="'select'">
+
+            </ng-container>
+            <ng-container 
+            *ngSwitchCase="'checkbox'">
+               
+            </ng-container>
+            <ng-container 
+            *ngSwitchCase="'group'">
+                <lab-generic-group [data]="child"></lab-generic-group>
+            </ng-container>
+        </ng-container>
+
+    </ng-container>
+</div>

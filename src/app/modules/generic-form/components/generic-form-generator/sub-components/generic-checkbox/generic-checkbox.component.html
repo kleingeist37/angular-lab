@@ -1,0 +1,13 @@
+
+<mat-checkbox 
+    [formControlName]="data.controlName"
+    class="{{data.defaultClass}}"
+    [checked]="boolConvert(data.defaultValue)"
+    >
+        {{data.displayName}}
+</mat-checkbox>               
+     
+        <!-- <ng-container *ngIf="data.validators">
+             todo: create forms message component 
+        </ng-container>           -->
+

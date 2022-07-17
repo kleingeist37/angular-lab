@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GenericFormHomeComponent } from './components/generic-form-home/generic-form-home.component';
+import { GenericFormGeneratorComponent } from './components/generic-form-generator/generic-form-generator.component';
 
 const routes: Routes = [
-  {path: '', component: GenericFormHomeComponent, pathMatch: 'full'}
+  {path: '', component: GenericFormGeneratorComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

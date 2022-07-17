@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { HomeComponent } from './core/components/home/home.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
+import { GenericFormModule } from './modules/generic-form/generic-form.module';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
     AppRoutingModule,
     BrowserAnimationsModule,
 
+    GenericFormModule,
     MaterialModule
   ],
   providers: [],

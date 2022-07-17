@@ -1,0 +1,101 @@
+<form 
+[formGroup]="genericForm" 
+class="form-container"
+(ngSubmit)="submit()">
+    <!-- <div formGroupName="corn">
+        <input 
+        matInput
+        [formControlName]="'theSpeaker'">
+        <input 
+        matInput
+        [formControlName]="'theOtherGuy'">
+
+    </div> -->
+    <ng-container *ngFor="let obj of formObjects">
+        <ng-container [ngSwitch]="obj.objectType">
+
+           <!-- SWITCH CASES-->
+           <ng-container>
+                <ng-container *ngSwitchCase="'input'">
+                    <lab-generic-input [data]="obj"></lab-generic-input>
+                    <!-- <ng-container
+                    *ngTemplateOutlet="input;context:{inputData:obj}">
+                    </ng-container> -->
+                </ng-container>
+                <ng-container *ngSwitchCase="'select'">
+                    <lab-generic-select [data]="obj"></lab-generic-select>        
+                    <!-- <ng-container
+                    *ngTemplateOutlet="select;context:{selectData:obj}">
+                    </ng-container> -->
+                </ng-container>
+                <ng-container *ngSwitchCase="'checkbox'">
+                    <lab-generic-checkbox [data]="obj"></lab-generic-checkbox>
+                     <!-- <ng-container
+                    *ngTemplateOutlet="checkbox;context:{checkboxData:obj}">
+                    </ng-container>  -->
+                </ng-container>
+                <ng-container *ngSwitchCase="'group'">
+                    <lab-generic-group [data]="obj"></lab-generic-group>
+                    <!-- <ng-container
+                    *ngTemplateOutlet="group;context:{groupData:obj}">
+                    </ng-container> -->
+                </ng-container>
+            </ng-container>
+
+
+           <!-- TEMPLATES -->
+           <!-- <ng-template #input let-inputData="inputData"> 
+                 <lab-generic-input [data]="inputData"></lab-generic-input>
+                 <mat-form-field 
+                [ngClass]="inputData.defaultClass" 
+                appearance="fill">
+                    <mat-label 
+                    *ngIf="inputData.displayName">
+                        {{inputData.displayName}}
+                    </mat-label>
+                    <input 
+                    matInput 
+                    [formControlName]="inputData.controlName"
+                    >
+                    <ng-container 
+                    *ngIf="inputData.validators">
+
+                    </ng-container> 
+                </mat-form-field>  
+            </ng-template>
+
+            <ng-template #select let-selectData="selectData">
+                <lab-generic-select [data]="selectData" [parentForm]="genericForm"></lab-generic-select>                
+            </ng-template>
+
+            <ng-template #checkbox let-checkboxData="checkboxData">
+                <lab-generic-checkbox [data]="checkboxData" [parentForm]="genericForm"></lab-generic-checkbox>
+                 <mat-checkbox 
+                [formControlName]="checkboxData.controlName"
+                [ngClass]="checkboxData.defaultClass"
+                [checked]="boolConvert(checkboxData.defaultValue)"
+                >
+                    {{checkboxData.displayName}}
+                </mat-checkbox>               
+                 
+                <ng-container *ngIf="checkboxData.validators">
+                    todo: create forms message component 
+                </ng-container>               
+            </ng-template>
+
+
+            <ng-template #group let-groupData="groupData">
+                <lab-generic-group [data]="groupData"></lab-generic-group>
+            </ng-template> --> 
+            
+
+
+        </ng-container>
+
+
+    </ng-container>
+    <button 
+    type="submit"
+    class="form-item"
+    [disabled]="genericForm.invalid">bla</button>
+</form>
